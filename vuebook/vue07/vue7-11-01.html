@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>vue7-01</title>
+</head>
+<!--数据验证 ：
+    验证的 type 类型可以是：
+    •  String
+    •  Number
+    •  Boolean
+    •  Object
+    •  Array
+    •  Function
+    。rpe 也可以是一个自定义构造器，使用 instanceof 检测。
+    当 prop 验证失败时，在开发版本下会在控制台抛出一条警告。-->
+<body>
+<div id="app">
+    <my-component></my-component>
+</div>
+<script src="https://cdn.jsdelivr.net/npm/vue@2.5.16/dist/vue.js"></script>
+<script>
+    Vue.component(' my-component', {
+        props: {
+            //必须是数字类型
+            propA: Number,
+            //必须是字符串或数字类型
+            propB: [String, Number],
+            //布尔值,如果没有定义,默认值就是 true
+            propC: {
+                type: Boolean,
+                default: true
+            },
+            //数字,而且是必传
+            propD: {
+                type: Number,
+                required: true
+            },
+            //如果是数组或对象,默认值必须是一个函数来返回
+            propE: {
+                type: Array,
+                default: function () {
+                    return [];
+                }
+            },
+            //自定义一个验证函数
+            propF: {
+                validator(value) {
+                    return value > 10;
+                }
+            }
+        }
+    });
+
+    var app = new Vue({
+        el: '#app'
+    })
+</script>
+</body>
+</html>

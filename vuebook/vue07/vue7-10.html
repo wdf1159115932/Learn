@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>vue7-10</title>
+</head>
+<!-- 单项数据流：
+Vue 2.x 与 Vue l.x 比较大的一个改变就是， Vue2.x 通过 props 传递数据是单向的了， 也就是父组件数据变化时会传递给子组件，
+但是反过来不行。而在 Vue l.x 里提供了. sync 修饰符来支持双向绑定。
+之所以这样设计，是尽可能将父子组件解稿，避免子组件无意中修改了父组件的状态。-->
+<body>
+	<!-- js中对象和数组是引用类型，指向同一个内存空间，所以props是对象和数组时，在子组件内改变是会影响父组件的 -->
+	<div id="app">
+		<my-component :init-count="1"></my-component>
+	</div>
+	<script src="https://cdn.jsdelivr.net/npm/vue@2.5.16/dist/vue.js"></script>
+	<script>
+		Vue.component('my-component',{
+			props:['initCount'], 
+			template:'<div>{{ count }}</div>',
+			data:function(){
+				return {
+					count : this.initCount
+					// 组件data内声明数据count，初始化获取来自父组件的ininCount，避免直接操作ininCount
+				}
+			}
+		})
+
+		var app = new Vue({
+			el:'#app'
+		})
+	</script>
+</body>
+</html>

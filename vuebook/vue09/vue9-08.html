@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>vue9-08</title>
+</head>
+<body>
+<!-- 使用js代替模板功能 -->
+<!--对于 v-for，可以用一个简单的for 循环来实现：-->
+<div id="app">
+    <ele :list="list"></ele>
+</div>
+<script src="https://cdn.jsdelivr.net/npm/vue@2.5.16/dist/vue.js"></script>
+<script>
+    Vue.component('ele', {
+        render: function (createElement) {
+            var nodes = [];
+            for (var i = 0; i < this.list.length; i++) {
+                nodes.push(createElement('p', this.list[i]))
+            }
+            return createElement('div', nodes)
+        },
+        props: {
+            list: {
+                type: Array
+            }
+        }
+    })
+    var app = new Vue({
+        el: '#app',
+        data: {
+            list: [
+                '《Vue.js 实战》',
+                '《JavaScript 高级程序设计》',
+                '《JavaScript 语言精粹》'
+            ]
+        }
+    })
+    /**  渲染结果：
+         <div>
+             <p>《Vue.js 实战》</p>
+             <p>《JavaScript 高级程序设计》</p>
+             <p>《JavaScript 语言精粹》</p>
+         </div>
+     */
+</script>
+</body>
+</html>

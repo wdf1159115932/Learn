@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>vue7-05</title>
+</head>
+<body>
+	<div id="app">
+		<my-component></my-component>
+		<my-component></my-component>
+		<my-component></my-component>
+	</div>
+	<script src="https://cdn.jsdelivr.net/npm/vue@2.5.16/dist/vue.js"></script>
+	<script>
+		var data = {	//js对象是引用关系，所以如果return出的对象引用了外部的一个对象，那这个对象就是共享的，任何修改都会同步。
+            counter: 0
+		};
+
+		Vue.component('my-component',{
+			template:'<button @click="counter++">{{ counter }}</button>',
+			data:function(){
+			    /* return data;//点击任意一个<button/> , 3 个的数字都会加 1 ，那是因为组件的 data 引用的是外部的对象*/
+				return {
+					counter: 0,	//这样，点击 3 个按钮就互不影响了，完全达到复用的目的。
+				}
+			}
+		})
+
+		var app = new Vue({
+			el:'#app'
+		})
+	</script>
+</body>
+</html>

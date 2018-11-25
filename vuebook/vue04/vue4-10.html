@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>vue4-10</title>
+</head>
+<!--如果直接在自定义组件上使用 class 或 :class ， 样式规则会直接应用到这个组件的根元素上
+最终组件渲染后的结果为：
+<p class="article active">一些文本</p>
+
+这种用法仅适用于自定义组件的最外层是一个根元素，否则会无效，当不满足这种条件或需
+要给具体的子元素设置类名时，应当使用组件的 props 来传递。这些用法同样适用于下一节中绑定
+内联样式 style 的内容。-->
+<body>
+	<div id="app">
+		<my-component :class="{ 'active':isActive }"></my-component>
+	</div>
+
+	<script src="https://cdn.jsdelivr.net/npm/vue@2.5.16/dist/vue.js"></script>
+	<script>
+		Vue.component('my-component',{
+			template:'<p class="article">一些文本</p>'
+		})
+		var app = new Vue({
+			el:'#app',
+			data:{
+				isActive:true
+			}
+		})
+	</script>
+</body>
+</html>
